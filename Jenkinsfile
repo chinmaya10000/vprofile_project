@@ -59,7 +59,6 @@ pipeline {
                     echo "deploy docker image to VM"
                     def shellCmd = "docker run -d -p 80:80 chinmayapradhan/vprofileweb:V1"
                     sshagent(['server-ssh-key']) {
-                        sh "scp compose/docker-compose.yml chinu@20.193.157.22:/home/chinu"
                         sh "ssh -o StrictHostKeyChecking=no chinu@20.193.157.22:/home/chinu '${shellCmd}'"
                     }
                 }
