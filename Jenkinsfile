@@ -25,15 +25,16 @@ pipeline {
                 script {
                     echo "Build and Push Docker Images"
                     def dockerAppDir = 'Docker-files/app'
-                    def dockerDbDir = 'Docker-files/db'
-                    def dockerWebDir = 'Docker-files/web'
+                    //def dockerDbDir = 'Docker-files/db'
+                    //def dockerWebDir = 'Docker-files/web'
 
                     // Build and tag Docker images for app, db, and web using the defined tags
                     docker.build("chinmayapradhan/vprofileapp:${APP_IMAGE_TAG}", "-f ${dockerAppDir}Dockerfile ${dockerAppDir}")
 
                     // Push Docker images to a registry using the defined tags
-                    docker.withRegistry
-                }
+                    docker.withRegistry( '', dockerhub-credentials )
+                    docker.image("chinmayapradhan/vprofileapp:${APP_IMAGE_TAG}").push()
+                } 
             }
         }
     }
