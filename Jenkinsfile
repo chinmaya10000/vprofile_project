@@ -51,5 +51,17 @@ pipeline {
                 } 
             }
         }
+        stage('deploy') {
+            steps {
+                script {
+                    echo "deploy docker image to VM"
+                    def dockerComposeCmd = "docker-compose up -d"
+                    sshagent(['ec2-server-key']) {
+                        sh "scp compose/docker-compose.yml chinu@20.193.157.22:/home/chinu"
+                        sh "ssh -o StrictHostKeyChecking=no chinu@20.193.157.22:/home/chinu '${dockerComposeCmd}'"
+                    }
+                }
+            }
+        }
     }
 }
