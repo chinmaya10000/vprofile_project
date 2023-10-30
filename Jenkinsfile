@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 pipeline {
     agent any
 
@@ -55,10 +57,10 @@ pipeline {
             steps {
                 script {
                     echo "deploy docker image to VM"
-                    def dockerComposeCmd = "docker-compose up -d"
-                    sshagent(['ec2-server-key']) {
+                    def shellCmd = "bash ./server-cmds.sh"
+                    sshagent(['server-ssh-key']) {
                         sh "scp compose/docker-compose.yml chinu@20.193.157.22:/home/chinu"
-                        sh "ssh -o StrictHostKeyChecking=no chinu@20.193.157.22:/home/chinu '${dockerComposeCmd}'"
+                        sh "ssh -o StrictHostKeyChecking=no chinu@20.193.157.22:/home/chinu '${shellCmd}'"
                     }
                 }
             }
