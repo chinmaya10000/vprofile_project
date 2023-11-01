@@ -57,6 +57,10 @@ pipeline {
             steps {
                 script {
                     echo "Deploying Docker image to Azure VM.."
+                    def shellCmd = "docker run -d -p 15672:15672 rabbitmq:latest"
+                    sshagent(['server-ssh-key']) {
+                        sh "ssh -o StrictHostKeyChecking=no azureuser@20.197.7.147 '${shellCmd}'"
+                    }
                 }
             }
         }
