@@ -56,18 +56,7 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    echo "Deploying Docker image to Azure VM"
-                    def shellCmd = "bash ./server-cmds.sh"
-                    withCredentials([sshUserPrivateKey(credentialsId: 'server-ssh-key', keyFileVariable: 'SSH_KEY')]) {
-                        // Use the Azure VM's public IP address or DNS name
-                        def azureVmIp = '20.193.157.22'
-                        def sshUser = 'chinu'
-                
-                        // Deploy the Docker image to Azure VM using SSH
-                        sh "echo \"${SSH_KEY}\" > prod-server_key.pem"
-                        sh "chmod 600 prod-server_key.pem"
-                        sh "ssh -o StrictHostKeyChecking=no -i prod-server_key.pem ${sshUser}@${azureVmIp} '${shellCmd}'"
-                    }
+                    echo "Deploying Docker image to Azure VM.."
                 }
             }
         }
