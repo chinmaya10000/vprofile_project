@@ -57,11 +57,6 @@ pipeline {
             steps {
                 script {
                     echo "Deploying Docker image to Azure VM.."
-                    def dockerComposeCmd = "docker-compose up -d"
-                    sshagent(['server-ssh-key']) {
-                        sh 'scp compose/docker-compose.yml azureuser@20.197.44.26:/home/azureuser'
-                        sh "ssh -o StrictHostKeyChecking=no azureuser@20.197.44.26 '${dockerComposeCmd}'"
-                    }
                 }
             }
         }
