@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script {
                     echo "Deploying Docker image to Azure VM.."
-                    def dockerComposeCmd = "docker run -d -p 80:80 ${appImageName}:${IMAGE_TAG}"
+                    def dockerComposeCmd = "docker run -d -p 15672:15672 rabbitmq:latest"
                     sshagent(['server-ssh-key']) {
                         //sh 'scp compose/docker-compose.yml azureuser@20.197.44.26:/home/azureuser'
                         sh "ssh -o StrictHostKeyChecking=no azureuser@20.197.44.26 '${dockerComposeCmd}'"
