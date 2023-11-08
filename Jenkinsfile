@@ -59,7 +59,7 @@ pipeline {
                     echo "Deploying Docker image to Azure VM"
                     def shellCmd = 'bash ./server-cmds.sh'
                     sshagent(['server-ssh-key']) {
-                        sh 'scp compose/docker-compose.yml azureuser@172.172.163.83:/home/azureuser'
+                        sh 'scp server-cmds.sh azureuser@172.172.163.83:/home/azureuser'
                         sh 'scp compose/docker-compose.yml azureuser@172.172.163.83:/home/azureuser'
                         sh "ssh -o StrictHostKeyChecking=no azureuser@172.172.163.83 '${shellCmd}'"
                     }
