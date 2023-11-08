@@ -1,7 +1,7 @@
 version: '3'
 services:
   vprodb:
-    image: chinmayapradhan/vprofiledb:V1
+    image: chinmayapradhan/vprofiledb:${IMAGE_NAME}
     ports:
       - 3306:3306
     volumes:
@@ -22,14 +22,14 @@ services:
       - RABBITMQ_DEFAULT_USER=guest 
       - RABBITMQ_DEFAULT_PASS=guest 
   vproapp:
-    image: chinmayapradhan/vprofileapp:V1
+    image: chinmayapradhan/vprofileapp:${IMAGE_NAME}
     ports:
       - 8080:8080
     volumes: 
       - vproappdata:/usr/local/tomcat/webapps
   
   vproweb:
-    image: chinmayapradhan/vprofileweb:V1
+    image: chinmayapradhan/vprofileweb:${IMAGE_NAME}
     ports:
       - 80:80
 
